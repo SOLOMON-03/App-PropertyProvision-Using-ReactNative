@@ -42,7 +42,7 @@ const Home = () => {
             </View>
             <SearchInput />
             <View className='w-full flex-1 pt-5 pb-8'>
-              <Text className='text-emerald-500 text-lg font-QueensidesMedium mb-3'>Latest Images</Text>
+              <Text className='text-emerald-500 text-lg font-QueensidesMedium mb-3'>Latests Images</Text>
               <Trending posts={latest ?? []} />
             </View>
           </View>
