@@ -1,5 +1,5 @@
-import { View, FlatList, TouchableOpacity, Image } from "react-native";
-import React from "react";
+import { View, FlatList, TouchableOpacity, Image, RefreshControl } from "react-native";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Empty from "../../components/Empty";
@@ -10,22 +10,29 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { icons } from "../../constants";
 import InfoBox from "../../components/InfoBox";
 import { router } from "expo-router";
+import ShowProduct from "../../components/ShowProduct";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useGlobalContext();
-  const { data: posts } = useAppwrite(() => getUserPosts(user?.$id));
+  const { data: posts, reFetch } = useAppwrite(() => getUserPosts(user?.$id));
   const logout = async () => {
     await signOut();
     setUser(null);
     setIsLoggedIn(false);
     router.replace('/sign-in');
   };
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await reFetch();
+    setRefreshing(false);
+  }
   return (
     <SafeAreaView className="bg-black h-full">
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <Product product={item} />}
+        renderItem={({ item }) => <ShowProduct product={item} />}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mb-12 mt-6 px-4">
             <TouchableOpacity
@@ -71,6 +78,7 @@ const Profile = () => {
             subtitle="No products found for this query!"
           />
         )}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
       <StatusBar style="light" />
     </SafeAreaView>

@@ -1,7 +1,5 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { icons } from '../constants'
-import Dropdown from "./Dropdown";
 
 const Product = ({
   product: {
@@ -30,9 +28,6 @@ const Product = ({
             </Text>
           </View>
         </View>
-        <TouchableOpacity className='pr-1'>
-          <Dropdown />
-        </TouchableOpacity>
       </View>
       <TouchableOpacity className="w-full h-60 relative justify-center items-center z-[-1]" activeOpacity={0.7}>
             <Image
