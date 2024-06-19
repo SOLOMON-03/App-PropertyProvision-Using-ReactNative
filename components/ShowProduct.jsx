@@ -6,7 +6,7 @@ import { useEffect } from "react/cjs/react.production.min";
 import { deletePost } from "../lib/appwrite";
 
 const ShowProduct = ({ product }) => {
-    const slug = product?.$id;
+    const slug = product.$id;
     const handleSubmit = async () => {
       try {
         await deletePost(slug);

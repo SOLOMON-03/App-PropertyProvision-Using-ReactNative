@@ -72,29 +72,29 @@ const Update = () => {
     };
 
     const submit = async () => {
-      if (
-          !form.title ||
-          !form.thumnail ||
-          !form.price ||
-          !form.description ||
-          !form.location ||
-          !form.discount
-      ) {
-          return Alert.alert("Error", "Please fill all the fields!");
-      }
-      setUploading(true);
-      try {
-          await updateProduct(id, form);
-          Alert.alert("Success", "Post Updated!");
-          router.push("/home");
-      } catch (error) {
-          console.error("Update Product Error:", error);
-          Alert.alert("Error gh", error.message);
-      } finally {
-          setUploading(false);
-      }
-  };
-  
+        if (
+            !form.title ||
+            !form.thumnail ||
+            !form.price ||
+            !form.description ||
+            !form.location ||
+            !form.discount
+        ) {
+            return Alert.alert("Error", "Please fill all the fields!");
+        }
+        setUploading(true);
+        try {
+            await updateProduct(id, form);
+            Alert.alert("Success", "Post Updated!");
+            router.push("/home");
+        } catch (error) {
+            console.error("Update Product Error:", error);
+            Alert.alert("Error", error.message);
+        } finally {
+            setUploading(false);
+        }
+    };
+
 
     return (
         <SafeAreaView className="bg-black h-full">
@@ -105,18 +105,16 @@ const Update = () => {
                 <View className="flex-row justify-center mt-10 self-center p-3 rounded-lg">
                     <TouchableOpacity onPress={() => setLand(!land)}>
                         <Text
-                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${
-                                !land ? "text-black bg-emerald-500" : "text-white"
-                            } `}
+                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${!land ? "text-black bg-emerald-500" : "text-white"
+                                } `}
                         >
                             Home
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setLand(!land)}>
                         <Text
-                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${
-                                land ? "text-black bg-emerald-500" : "text-white"
-                            } `}
+                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${land ? "text-black bg-emerald-500" : "text-white"
+                                } `}
                         >
                             Land
                         </Text>
