@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, Image, Alert } from "react-native";
+import {
+    View,
+    Text,
+    ScrollView,
+    TouchableOpacity,
+    Image,
+    Alert,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import FormField from "../../components/FormField";
@@ -13,7 +20,6 @@ import { getPost, updateProduct } from "../../lib/appwrite";
 const Update = () => {
     const { id } = useLocalSearchParams();
     const [uploading, setUploading] = useState(false);
-    const [land, setLand] = useState(false);
     const [form, setForm] = useState({
         title: "",
         thumnail: null,
@@ -26,6 +32,7 @@ const Update = () => {
         parking: false,
         rent: false,
         location: "",
+        land: false,
     });
 
     useEffect(() => {
@@ -44,6 +51,7 @@ const Update = () => {
                     parking: productDetails.parking,
                     rent: productDetails.rent,
                     location: productDetails.location,
+                    land: productDetails.land,
                 });
             } catch (error) {
                 console.error("Failed to fetch product details:", error);
@@ -95,31 +103,12 @@ const Update = () => {
         }
     };
 
-
     return (
         <SafeAreaView className="bg-black h-full">
             <ScrollView className="px-4 my-6">
                 <Text className="text-emerald-500 font-Swansea text-3xl text-center">
                     Update Product
                 </Text>
-                <View className="flex-row justify-center mt-10 self-center p-3 rounded-lg">
-                    <TouchableOpacity onPress={() => setLand(!land)}>
-                        <Text
-                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${!land ? "text-black bg-emerald-500" : "text-white"
-                                } `}
-                        >
-                            Home
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setLand(!land)}>
-                        <Text
-                            className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${land ? "text-black bg-emerald-500" : "text-white"
-                                } `}
-                        >
-                            Land
-                        </Text>
-                    </TouchableOpacity>
-                </View>
                 <FormField
                     title="Product Title"
                     value={form.title}
@@ -155,21 +144,38 @@ const Update = () => {
                     handleChangeText={(e) => setForm({ ...form, location: e })}
                     otherStyle="mt-10"
                 />
-                {!land && (
+                <View className="flex-row mt-10 justify-center ">
+                    <View className="flex-1">
+                        <CheckBox
+                            checkBoxColor="#10b981"
+                            rightText={"Land"}
+                            rightTextStyle={{ color: "white", marginLeft: 10 }}
+                            isChecked={form.land}
+                            onClick={() => {
+                                setForm({ ...form, land: !form.land });
+                            }}
+                        />
+                    </View>
+                </View>
+                {!form.land && (
                     <>
                         <View className="flex-row">
                             <FormField
                                 title="Bedroom"
                                 value={form.bedroom}
                                 placeholder="1"
-                                handleChangeText={(e) => setForm({ ...form, bedroom: Number(e) })}
+                                handleChangeText={(e) =>
+                                    setForm({ ...form, bedroom: Number(e) })
+                                }
                                 otherStyle="mt-10 mr-10"
                             />
                             <FormField
                                 title="Bathroom"
                                 value={form.bathroom}
                                 placeholder="1"
-                                handleChangeText={(e) => setForm({ ...form, bathroom: Number(e) })}
+                                handleChangeText={(e) =>
+                                    setForm({ ...form, bathroom: Number(e) })
+                                }
                                 otherStyle="mt-10"
                             />
                         </View>

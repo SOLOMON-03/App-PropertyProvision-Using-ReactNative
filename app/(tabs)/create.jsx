@@ -21,7 +21,6 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const Create = () => {
   const { user } = useGlobalContext();
   const [uploading, setUploading] = useState(false);
-  const [land, setLand] = useState(false);
   const [form, setForm] = useState({
     title: "",
     thumnail: null,
@@ -34,6 +33,7 @@ const Create = () => {
     parking: false,
     rent: false,
     location: "",
+    land: false,
   });
   const openPicker = async (selectType) => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -83,6 +83,7 @@ const Create = () => {
         parking: false,
         rent: false,
         location: "",
+        land: false,
       });
       setUploading(false);
     }
@@ -93,26 +94,6 @@ const Create = () => {
         <Text className="text-emerald-500 font-Swansea text-3xl text-center">
           Create Product
         </Text>
-        <View className="flex-row justify-center mt-10  self-center p-3 rounded-lg">
-          <TouchableOpacity onPress={() => setLand(!land)}>
-            <Text
-              className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${
-                !land ? "text-black bg-emerald-500" : "text-white"
-              } `}
-            >
-              Home
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => setLand(!land)}>
-            <Text
-              className={`text-xl font-verdana w-40 text-center p-3 rounded-lg ${
-                land ? "text-black bg-emerald-500" : "text-white"
-              } `}
-            >
-              Land
-            </Text>
-          </TouchableOpacity>
-        </View>
         <FormField
           title="Product Title"
           value={form.title}
@@ -148,21 +129,36 @@ const Create = () => {
           handleChangeText={(e) => setForm({ ...form, location: e })}
           otherStyle="mt-10"
         />
-        {!land && (
+        <View className="flex-row mt-10 justify-center ">
+          <View className="flex-1">
+            <CheckBox
+              checkBoxColor="#10b981"
+              rightText={"Land"}
+              rightTextStyle={{ color: "white", marginLeft: 10 }}
+              isChecked={form.land}
+              onClick={() => {setForm({ ...form, land: !form.land })}}
+            />
+          </View>
+        </View>
+        {!form.land && (
           <>
             <View className="flex-row">
               <FormField
                 title="Bedroom"
                 value={form.bedroom}
                 placeholder="1"
-                handleChangeText={(e) => setForm({ ...form, bedroom: Number(e) })}
+                handleChangeText={(e) =>
+                  setForm({ ...form, bedroom: Number(e) })
+                }
                 otherStyle="mt-10 mr-10"
               />
               <FormField
                 title="Bathroom"
                 value={form.bathroom}
                 placeholder="1"
-                handleChangeText={(e) => setForm({ ...form, bathroom: Number(e) })}
+                handleChangeText={(e) =>
+                  setForm({ ...form, bathroom: Number(e) })
+                }
                 otherStyle="mt-10"
               />
             </View>

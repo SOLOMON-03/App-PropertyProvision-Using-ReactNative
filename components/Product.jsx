@@ -1,13 +1,26 @@
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
-
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import React, { useState } from "react";
+import { icons } from "../constants";
+import { updateBookmarkPosts } from "../lib/appwrite";
 const Product = ({
   product: {
+    $id,
     title,
     thumnail,
+    bookmark,
     creator: { username, avatar },
   },
 }) => {
+  const [like, setLike] = useState(false);
+  const handleLike = async (value) => {
+    setLike(!value);
+    try {
+      await updateBookmarkPosts($id, like);
+    } catch (error) {
+      console.error("Update Product Error:", error);
+      Alert.alert("Error", error.message);
+    }
+  };
   return (
     <View className="flex-col items-center px-4 mb-10">
       <View className="flex-row gap-1 items-center mb-4">
@@ -28,14 +41,24 @@ const Product = ({
             </Text>
           </View>
         </View>
+        <TouchableOpacity className="mr-1" onPress={() => handleLike(like)}>
+          <Image
+            source={!like ? icons.heart : icons.like}
+            className="w-7 h-7"
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
       </View>
-      <TouchableOpacity className="w-full h-60 relative justify-center items-center z-[-1]" activeOpacity={0.7}>
-            <Image
-              source={{ uri: thumnail }}
-              className="w-full h-full rounded-xl"
-              resizeMode="cover"
-            />
-          </TouchableOpacity>
+      <TouchableOpacity
+        className="w-full h-60 relative justify-center items-center z-[-1]"
+        activeOpacity={0.7}
+      >
+        <Image
+          source={{ uri: thumnail }}
+          className="w-full h-full rounded-xl"
+          resizeMode="cover"
+        />
+      </TouchableOpacity>
     </View>
   );
 };

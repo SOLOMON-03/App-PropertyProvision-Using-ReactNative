@@ -23,7 +23,7 @@ const Search = () => {
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <Product product={item} />}
         ListHeaderComponent={() => (
-          <View className="px-4 mt-5">
+          <View className="px-4 mt-5 mb-4">
             <Text className="text-lg text-emerald-400 font-KalivoBlack -mb-2">
               Search Result
             </Text>
