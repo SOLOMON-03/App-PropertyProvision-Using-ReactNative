@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import GlobalProvider from "../context/GlobalProvider";
+import { LikeProvider } from "../context/LikeProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,13 +44,18 @@ const rootLayout = () => {
 
   return (
     <GlobalProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name='search/[query]' options={{headerShown: false}} />
-        <Stack.Screen name='update/[id]' options={{headerShown: false}} />
-      </Stack>
+      <LikeProvider>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="search/[query]"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="update/[id]" options={{ headerShown: false }} />
+        </Stack>
+      </LikeProvider>
     </GlobalProvider>
   );
 };

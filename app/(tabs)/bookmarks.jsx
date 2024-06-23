@@ -22,10 +22,17 @@ const Bookmarks = () => {
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <Product product={item} />}
         ListHeaderComponent={() => (
-          <View className="flex-1 justify-center items-center my-7">
-            <Text className="text-emerald-500 text-3xl font-MontserratMedium">
-              Bookmark
-            </Text>
+          <View className="my-6 px-4 space-y-4">
+            <View className="flex-row justify-between items-center mb-6">
+                <Text className="text-3xl text-white font-MontserratMedium tracking-widest">Bookmark</Text>
+              <View className=''>
+                <Image 
+                  source={images.logo}
+                  className='w-24 h-24'
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
           </View>
         )}
         ListEmptyComponent={() => (

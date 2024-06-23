@@ -13,6 +13,7 @@ import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
 import like from "../assets/icons/like.png";
 import heart from "../assets/icons/heart.png";
+import booking from "../assets/icons/booking.png";
 
 export default {
   play,
@@ -29,5 +30,6 @@ export default {
   eyeHide,
   eye,
   like,
-  heart
+  heart,
+  booking
 };

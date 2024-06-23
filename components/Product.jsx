@@ -1,7 +1,11 @@
+// src/components/Product.js
+
 import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import { icons } from "../constants";
 import { updateBookmarkPosts } from "../lib/appwrite";
+import { useLikeContext } from "../context/LikeProvider";
+
 const Product = ({
   product: {
     $id,
@@ -11,16 +15,18 @@ const Product = ({
     creator: { username, avatar },
   },
 }) => {
-  const [like, setLike] = useState(false);
-  const handleLike = async (value) => {
-    setLike(!value);
-    try {
-      await updateBookmarkPosts($id, like);
-    } catch (error) {
-      console.error("Update Product Error:", error);
-      Alert.alert("Error", error.message);
+  const { likePost, unlikePost, isLiked } = useLikeContext();
+
+  const handleLike = async () => {
+    if (isLiked($id)) {
+      unlikePost($id);
+      await updateBookmarkPosts($id, false);
+    } else {
+      likePost({ $id, title, thumnail, bookmark, creator: { username, avatar } });
+      await updateBookmarkPosts($id, true);
     }
   };
+
   return (
     <View className="flex-col items-center px-4 mb-10">
       <View className="flex-row gap-1 items-center mb-4">
@@ -41,9 +47,9 @@ const Product = ({
             </Text>
           </View>
         </View>
-        <TouchableOpacity className="mr-1" onPress={() => handleLike(like)}>
+        <TouchableOpacity className="mr-1" onPress={handleLike}>
           <Image
-            source={!like ? icons.heart : icons.like}
+            source={!isLiked($id) ? icons.like : icons.heart}
             className="w-7 h-7"
             resizeMode="cover"
           />
