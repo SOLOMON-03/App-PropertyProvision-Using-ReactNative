@@ -1,10 +1,9 @@
-// src/components/Product.js
-
-import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { icons } from "../constants";
 import { updateBookmarkPosts } from "../lib/appwrite";
 import { useLikeContext } from "../context/LikeProvider";
+import { router } from "expo-router";
 
 const Product = ({
   product: {
@@ -23,7 +22,7 @@ const Product = ({
       await updateBookmarkPosts($id, false);
     } else {
       likePost({ $id, title, thumnail, bookmark, creator: { username, avatar } });
-      await updateBookmarkPosts($id, true);
+      await updateBookmarkPosts($id, true);  
     }
   };
 
@@ -58,6 +57,7 @@ const Product = ({
       <TouchableOpacity
         className="w-full h-60 relative justify-center items-center z-[-1]"
         activeOpacity={0.7}
+        onPress={() => router.push(`/viewproduct/${$id}`)}
       >
         <Image
           source={{ uri: thumnail }}

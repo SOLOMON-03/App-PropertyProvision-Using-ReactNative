@@ -13,7 +13,7 @@ const SearchInput = ({ initialQuery }) => {
     const pathname = usePathname();
     const [query, setQuery] = useState(initialQuery || "");
     return (
-        <View className="border-2 w-full h-16 opacity-80 mb-2 border-white rounded-xl px-4 focus:border-emerald-500 items-center flex-row space-x-4">
+        <View className="border-2 self-center w-full h-16 opacity-80 mb-2 border-white rounded-xl px-4 focus:border-emerald-500 items-center flex-row space-x-4">
             <TextInput
                 className="text-base font-verdana flex-1 text-white"
                 value={query}

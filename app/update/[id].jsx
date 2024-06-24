@@ -72,10 +72,6 @@ const Update = () => {
         });
         if (!result.canceled) {
             setForm({ ...form, thumnail: result.assets[0] });
-        } else {
-            setTimeout(() => {
-                Alert.alert("Document Picked", JSON.stringify(result, null, 2));
-            }, 100);
         }
     };
 

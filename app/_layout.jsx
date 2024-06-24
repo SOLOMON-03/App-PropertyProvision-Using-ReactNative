@@ -54,6 +54,7 @@ const rootLayout = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="update/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="viewproduct/[id]" options={{ headerShown: false }} />
         </Stack>
       </LikeProvider>
     </GlobalProvider>

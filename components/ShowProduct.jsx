@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import { Image } from "react-native";
 import { router } from "expo-router";
-import { useEffect } from "react/cjs/react.production.min";
 import { deletePost } from "../lib/appwrite";
 
 const ShowProduct = ({ product }) => {

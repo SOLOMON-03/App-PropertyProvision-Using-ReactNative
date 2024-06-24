@@ -5,7 +5,6 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  ScrollView,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
@@ -20,7 +19,7 @@ import {
   getParkingPosts,
   getRentPosts,
   getSalePosts,
-} from "../../lib/appwrite"; // Assuming getAllposts is the correct function
+} from "../../lib/appwrite";
 import Product from "../../components/Product";
 
 const Bookings = () => {
@@ -29,13 +28,13 @@ const Bookings = () => {
   const [selectedType, setSelectedType] = useState("All");
 
   useEffect(() => {
-    fetchPosts(selectedType); // Fetch initial posts when component mounts
+    fetchPosts(selectedType);
   }, []);
 
   const fetchPosts = async (typeName) => {
     let fetchedPosts = [];
     if (typeName === "All") {
-      fetchedPosts = await getAllposts(); // Fetch all posts
+      fetchedPosts = await getAllposts();
     } else if (typeName === "Rent") {
       fetchedPosts = await getRentPosts();
     } else if (typeName === "Sale") {
@@ -54,7 +53,7 @@ const Bookings = () => {
 
   const handleTypeSelection = (typeName) => {
     setSelectedType(typeName);
-    fetchPosts(typeName); // Fetch posts when a type is selected
+    fetchPosts(typeName);
   };
 
   const type = [
@@ -75,7 +74,7 @@ const Bookings = () => {
           keyExtractor={(item) => item.$id}
           renderItem={({ item }) => <Product product={item} />}
           ListHeaderComponent={() => (
-            <View className="my-3">
+            <View className="my-3 px-4">
             <View className="flex-row justify-between items-center mb-4 px-4">
               <Text className="text-3xl text-white font-MontserratMedium tracking-widest">
                 Booking

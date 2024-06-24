@@ -14,6 +14,15 @@ import play from "../assets/icons/play.png";
 import like from "../assets/icons/like.png";
 import heart from "../assets/icons/heart.png";
 import booking from "../assets/icons/booking.png";
+import bathroom from "../assets/icons/bathroom.png";
+import discount from "../assets/icons/discount.png";
+import furniture from "../assets/icons/furniture.png";
+import map from "../assets/icons/map.png";
+import parking from "../assets/icons/parking.png";
+import price from "../assets/icons/price-tag.png";
+import rent from "../assets/icons/rent.png";
+import sale from "../assets/icons/sale.png";
+import sleeping from "../assets/icons/sleeping.png";
 
 export default {
   play,
@@ -31,5 +40,14 @@ export default {
   eye,
   like,
   heart,
-  booking
+  booking,
+  bathroom,
+  sleeping,
+  price,
+  rent,
+  sale,
+  discount,
+  map,
+  parking,
+  furniture
 };
