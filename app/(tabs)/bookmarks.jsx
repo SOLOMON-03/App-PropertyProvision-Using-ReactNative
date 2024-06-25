@@ -6,9 +6,11 @@ import Product from "../../components/Product";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { images } from "../../constants";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Bookmarks = () => {
-  const { data: posts, reFetch } = useAppwrite(getBookmarkPosts);
+  const { user } = useGlobalContext();
+  const { data: posts, reFetch } = useAppwrite(()=>getBookmarkPosts(user?.$id));
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);

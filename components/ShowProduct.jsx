@@ -17,7 +17,7 @@ const ShowProduct = ({ product }) => {
   };
   return (
     <View className="w-full flex-1 px-4 mb-10">
-      <View className="border border-gray-900 rounded-2xl h-20">
+      <View className="border border-gray-500 rounded-2xl h-20">
         <View className="flex-row items-center">
           <View className="">
             <Image

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import { Stack, SplashScreen } from "expo-router";
 import { useFonts } from "expo-font";
 import GlobalProvider from "../context/GlobalProvider";
-import { LikeProvider } from "../context/LikeProvider";
+import LikeProvider from "../context/LikeProvider";
 
 SplashScreen.preventAutoHideAsync();
 

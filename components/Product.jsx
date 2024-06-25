@@ -1,30 +1,60 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { icons } from "../constants";
-import { updateBookmarkPosts } from "../lib/appwrite";
-import { useLikeContext } from "../context/LikeProvider";
+import { deleteBookmarkPosts, getBookmarkPost, updateBookmarkPosts } from "../lib/appwrite";
+import { useGlobalContext } from "../context/GlobalProvider";
 import { router } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import useAppwrite from "../lib/useAppwrite";
+import { useLikeContext } from "../context/LikeProvider";
 
 const Product = ({
   product: {
     $id,
     title,
     thumnail,
-    bookmark,
     creator: { username, avatar },
   },
 }) => {
-  const { likePost, unlikePost, isLiked } = useLikeContext();
+  const [like, setLike] = useState(false);
+  const { user } = useGlobalContext();
+  const { isLiked, likePost, unlikePost } = useLikeContext();
+
+  useEffect(() => {
+    const loadLikedStatus = async () => {
+      try {
+        const likedStatus = await AsyncStorage.getItem(`liked_${$id}_${user?.$id}`);
+        if (likedStatus !== null) {
+          setLike(JSON.parse(likedStatus));
+        }
+      } catch (error) {
+        console.error("Error loading liked status:", error);
+      }
+    };
+
+    loadLikedStatus();
+  }, [$id, user?.$id]);
 
   const handleLike = async () => {
-    if (isLiked($id)) {
-      unlikePost($id);
-      await updateBookmarkPosts($id, false);
-    } else {
-      likePost({ $id, title, thumnail, bookmark, creator: { username, avatar } });
-      await updateBookmarkPosts($id, true);  
+    try {
+      if (isLiked($id)) {
+        await unlikePost($id);
+        await deleteBookmarkPosts($id, user?.$id); 
+        setLike(false);
+        await AsyncStorage.setItem(`liked_${$id}_${user?.$id}`, JSON.stringify(false));
+      } else {
+        await likePost({ $id, title, thumnail, creator: { username, avatar } });
+        await updateBookmarkPosts($id, user?.$id); 
+        setLike(true);
+        await AsyncStorage.setItem(`liked_${$id}_${user?.$id}`, JSON.stringify(true));
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
+      setLike(false);
+      await AsyncStorage.setItem(`liked_${$id}_${user?.$id}`, JSON.stringify(false));
     }
   };
+  
 
   return (
     <View className="flex-col items-center px-4 mb-10">
@@ -48,7 +78,7 @@ const Product = ({
         </View>
         <TouchableOpacity className="mr-1" onPress={handleLike}>
           <Image
-            source={!isLiked($id) ? icons.like : icons.heart}
+            source={like ? icons.heart : icons.like}
             className="w-7 h-7"
             resizeMode="cover"
           />

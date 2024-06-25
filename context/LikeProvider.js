@@ -2,20 +2,22 @@ import React, { createContext, useContext, useState } from "react";
 
 const LikeContext = createContext();
 
-export const LikeProvider = ({ children }) => {
+const LikeProvider = ({ children }) => {
   const [likedPosts, setLikedPosts] = useState([]);
 
-  const likePost = (post) => {
-    setLikedPosts((prevLikedPosts) => [...prevLikedPosts, post]);
+  const isLiked = (postId) => {
+    return likedPosts.some((post) => post.$id === postId);
   };
 
   const unlikePost = (postId) => {
-    setLikedPosts((prevLikedPosts) =>
-      prevLikedPosts.filter((post) => post.$id !== postId)
-    );
+    const updatedLikedPosts = likedPosts.filter((post) => post.$id !== postId);
+    setLikedPosts(updatedLikedPosts);
   };
 
-  const isLiked = (postId) => likedPosts.some((post) => post.$id === postId);
+  const likePost = (post) => {
+    const updatedLikedPosts = [...likedPosts, post];
+    setLikedPosts(updatedLikedPosts);
+  };
 
   return (
     <LikeContext.Provider value={{ likedPosts, likePost, unlikePost, isLiked }}>
@@ -25,3 +27,5 @@ export const LikeProvider = ({ children }) => {
 };
 
 export const useLikeContext = () => useContext(LikeContext);
+
+export default LikeProvider;

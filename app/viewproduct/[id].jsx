@@ -27,14 +27,12 @@ const BookingProduct = () => {
     const [uploading, setUploading] = useState(false);
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState("");
+    const [LandLord, setLandLord] = useState(false);
     const onRefresh = async () => {
         setRefreshing(true);
         await reFetch();
         setRefreshing(false);
     };
-    // const userEmail = user?.email;
-    // const postEmail = posts.creator.email;
-    // console.log(user.$id,posts.creator.$id)
     const onSubmit = () => {
         if (posts && posts.creator && posts.creator.email) {
             const mailtoLink = `mailto:${posts.creator.email}?subject=Regarding ${posts.title}&body=${message}`;
@@ -115,7 +113,7 @@ const BookingProduct = () => {
                                 </Text>
                             </View>
                         </View>
-                        <TouchableOpacity className="w-full bg-red-600 rounded-2xl px-3 py-2">
+                        <TouchableOpacity className="w-full bg-red-600 rounded-2xl px-3 py-2" activeOpacity={0.6}>
                             {posts.land ? (
                                 <View className="flex-row items-center justify-center space-x-2">
                                     <Image
@@ -207,7 +205,7 @@ const BookingProduct = () => {
                             )}
                         </View>
                     </View>
-                    {(!open ? (
+                    { user?.email !== posts?.creator?.email && (!open ? (
                         <CustomButton
                             title="Contact LandLord"
                             handlePress={() => setOpen(!open)}
