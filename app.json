@@ -5,8 +5,11 @@
     "scheme": ["propertyprovision"],
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/Image/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
+      "image" : "./assets/Image/logo.png",
+      "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
     "ios": {
@@ -15,11 +18,14 @@
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "./assets/Image/logo.png",
         "backgroundColor": "#000000"
       },
       "package": "com.solomon.HomeFinder"
     },
-    "web": {},
+    "web": {
+      "favicon" :"./assets/Image/logo.png"
+    },
     "plugins": [
       "expo-router",
       "expo-font"
