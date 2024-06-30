@@ -177,7 +177,7 @@ const BookingProduct = () => {
                                     </View>
                                 </View>
                             )}
-                            {!posts.furnished && !posts.land && (
+                            {posts.furnished && !posts.land && (
                                 <View className="flex-row items-center justify-start">
                                     <Image
                                         source={icons.furniture}
@@ -190,7 +190,7 @@ const BookingProduct = () => {
                                     </Text>
                                 </View>
                             )}
-                            {!posts.parking && !posts.land && (
+                            {posts.parking && !posts.land && (
                                 <View className="flex-row items-center justify-start">
                                     <Image
                                         source={icons.parking}

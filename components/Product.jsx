@@ -1,11 +1,10 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { icons } from "../constants";
-import { deleteBookmarkPosts, getBookmarkPost, updateBookmarkPosts } from "../lib/appwrite";
+import { deleteBookmarkPosts, updateBookmarkPosts } from "../lib/appwrite";
 import { useGlobalContext } from "../context/GlobalProvider";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import useAppwrite from "../lib/useAppwrite";
 import { useLikeContext } from "../context/LikeProvider";
 
 const Product = ({

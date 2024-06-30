@@ -6,7 +6,7 @@ import { StatusBar } from "expo-status-bar";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
 import Empty from "../../components/Empty";
-import { getAllposts, latestPosts } from "../../lib/appwrite";
+import { latestPosts } from "../../lib/appwrite";
 import useAppwrite from '../../lib/useAppwrite'
 import Product from "../../components/Product";
 import { useGlobalContext } from "../../context/GlobalProvider";
