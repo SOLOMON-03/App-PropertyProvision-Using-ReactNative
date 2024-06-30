@@ -13,8 +13,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
   const { user } = useGlobalContext();
-  const { data: posts, reFetch } = useAppwrite(getAllposts);
-  const { data: latest } = useAppwrite(latestPosts);
+  const { data: latest, reFetch } = useAppwrite(latestPosts);
   const [refreshing, setRefreshing] = useState(false)
   const onRefresh = async () => {
     setRefreshing(true);
@@ -24,7 +23,7 @@ const Home = () => {
   return (
     <SafeAreaView className="bg-black h-full">
       <FlatList
-        data={posts}
+        data={latest}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <Product product={item} />}
         ListHeaderComponent={() => (
