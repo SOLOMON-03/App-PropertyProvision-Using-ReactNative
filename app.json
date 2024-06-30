@@ -2,7 +2,7 @@
   "expo": {
     "name": "PropertyProvision-App",
     "slug": "PropertyProvision-App",
-    "scheme": "PropertyProvision",
+    "scheme": ["propertyprovision"],
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -11,19 +11,26 @@
     },
     "ios": {
       "supportsTablet": true,
-      "package" : "com.solomon.HomeFinder"
+      "bundleIdentifier": "com.solomon.HomeFinder"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#000000"
       },
-      "package" : "com.solomon.HomeFinder"
+      "package": "com.solomon.HomeFinder"
     },
-    "web": {
-    },
+    "web": {},
     "plugins": [
       "expo-router",
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "fa950832-faf6-4ecb-8d82-1f88077b5b75"
+      }
+    }
   }
 }
